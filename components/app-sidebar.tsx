@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useEffect } from "react"
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
@@ -13,39 +14,62 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { CarFrontIcon, CommandIcon, ImageIcon } from "lucide-react"
-import { useAppSelector } from "@/store/hooks"
+import {
+  CarFrontIcon,
+  CommandIcon,
+  LayoutDashboardIcon,
+  FileTextIcon,
+  ImageIcon,
+  QuoteIcon,
+  ShieldCheckIcon,
+  StarIcon,
+  UsersIcon,
+} from "lucide-react"
+import { useAppDispatch, useAppSelector } from "@/store/hooks"
+import { checkProfile } from "@/store/slices/auth-slice"
 
 function getRoleMenus(role?: string) {
   const normalizedRole = role?.toUpperCase()
 
   if (normalizedRole === "ADMIN") {
     return [
-      {
-        title: "Banners",
-        url: "/banners",
-        icon: <ImageIcon />,
-      },
-      {
-        title: "Cars",
-        url: "/dashboard",
-        icon: <CarFrontIcon />,
-      },
+      { title: "Dashboard", url: "/dashboard", icon: <LayoutDashboardIcon className="size-5" /> },
+      { title: "Banners", url: "/banners", icon: <ImageIcon className="size-5" /> },
+      { title: "Cars", url: "/cars", icon: <CarFrontIcon className="size-5" /> },
+      { title: "Insurance", url: "/insurances", icon: <ShieldCheckIcon className="size-5" /> },
+      { title: "Quote", url: "/free-quotes", icon: <QuoteIcon className="size-5" /> },
+      { title: "Newsletter", url: "/newsletters", icon: <FileTextIcon className="size-5" /> },
+      { title: "Blog", url: "/blogs", icon: <FileTextIcon className="size-5" /> },
+      { title: "Testimonial", url: "/testimonials", icon: <StarIcon className="size-5" /> },
+      { title: "Dealer", url: "/dealers", icon: <UsersIcon className="size-5" /> },
+    ]
+  }
+
+  if (normalizedRole === "DEALER") {
+    return [
+      { title: "Dashboard", url: "/dashboard", icon: <LayoutDashboardIcon className="size-5" /> },
+      { title: "Cars", url: "/cars", icon: <CarFrontIcon className="size-5" /> },
     ]
   }
 
   return [
-    {
-      title: "Cars",
-      url: "/dashboard",
-      icon: <CarFrontIcon />,
-    },
+    { title: "Dashboard", url: "/dashboard", icon: <LayoutDashboardIcon className="size-5" /> },
+    { title: "Cars", url: "/cars", icon: <CarFrontIcon className="size-5" /> },
   ]
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const user = useAppSelector((state) => state.auth.user)
+  const dispatch = useAppDispatch()
+  const { user, tokens } = useAppSelector((state) => state.auth)
   const navItems = getRoleMenus(user?.role)
+
+  useEffect(() => {
+    if (!tokens?.accessToken) {
+      return
+    }
+
+    void dispatch(checkProfile())
+  }, [dispatch, tokens?.accessToken])
 
   return (
     <Sidebar collapsible="offcanvas" {...props}>

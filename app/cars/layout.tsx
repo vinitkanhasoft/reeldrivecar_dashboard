@@ -2,11 +2,11 @@ import { AppSidebar } from "@/components/app-sidebar"
 import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 
-type BannersLayoutProps = {
+type CarsLayoutProps = {
   children: React.ReactNode
 }
 
-export default function BannersLayout({ children }: BannersLayoutProps) {
+export default function CarsLayout({ children }: CarsLayoutProps) {
   return (
     <SidebarProvider
       style={
@@ -18,7 +18,7 @@ export default function BannersLayout({ children }: BannersLayoutProps) {
     >
       <AppSidebar variant="inset" />
       <SidebarInset>
-        <SiteHeader title="Banners" />
+        <SiteHeader title="Cars" />
         <div className="flex flex-1 flex-col">{children}</div>
       </SidebarInset>
     </SidebarProvider>

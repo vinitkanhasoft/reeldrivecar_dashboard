@@ -1,0 +1,65 @@
+export const API_ENDPOINTS = {
+  auth: {
+    register: "/api/auth/register",
+    login: "/api/auth/login",
+    verifyEmail: "/api/auth/verify-email",
+    refresh: "/api/auth/refresh",
+    forgotPassword: "/api/auth/forgot-password",
+    resetPassword: "/api/auth/reset-password",
+    logout: "/api/auth/logout",
+  },
+  users: {
+    base: "/api/users",
+    profile: "/api/users/profile",
+    list: "/api/users",
+    create: "/api/users",
+    byId: (userId: string) => `/api/users/${userId}`,
+    update: (userId: string) => `/api/users/${userId}`,
+    delete: (userId: string) => `/api/users/${userId}`,
+  },
+  cars: {
+    base: "/api/v1/cars",
+    byId: (carId: string) => `/api/v1/cars/${carId}`,
+    byDealer: (dealerId: string) => `/api/v1/cars/dealer/${dealerId}`,
+    advancedSearch: "/api/v1/cars/search/advanced",
+    bulkDelete: "/api/v1/cars/bulk-delete",
+  },
+  banners: {
+    base: "/api/banners",
+    byId: (bannerId: string) => `/api/banners/${bannerId}`,
+    activeByType: (type: string) => `/api/banners/active/${type}`,
+    bulkDelete: "/api/banners/bulk",
+  },
+  newsletters: {
+    base: "/api/newsletters",
+    byId: (newsletterId: string) => `/api/newsletters/${newsletterId}`,
+    bulkDelete: "/api/newsletters/bulk",
+  },
+  testimonials: {
+    base: "/api/testimonials",
+    byId: (testimonialId: string) => `/api/testimonials/${testimonialId}`,
+    bulkDelete: "/api/testimonials/bulk",
+  },
+  freeQuotes: {
+    base: "/api/free-quotes",
+    byId: (freeQuoteId: string) => `/api/free-quotes/${freeQuoteId}`,
+    bulkDelete: "/api/free-quotes/bulk",
+  },
+  insurances: {
+    base: "/api/insurances",
+    byId: (insuranceCompanyId: string) => `/api/insurances/${insuranceCompanyId}`,
+    bulkDelete: "/api/insurances/bulk",
+  },
+  inquiries: {
+    base: "/api/inquiries",
+    byId: (inquiryId: string) => `/api/inquiries/${inquiryId}`,
+    bulkDelete: "/api/inquiries/bulk",
+  },
+  blogs: {
+    base: "/api/blogs",
+    byId: (blogId: string) => `/api/blogs/${blogId}`,
+    bySlug: (blogSlug: string) => `/api/blogs/${blogSlug}`,
+    bulkDelete: "/api/blogs/bulk",
+  },
+  health: "/health",
+} as const
